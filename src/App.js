@@ -4,15 +4,15 @@ import History from './components/History';
 import { calculateWinner } from './helpers';
 import './styles/root.scss';
 
-
+const NEW_GAME = [{ board: Array(9).fill(null), isXNext: true }]
 function App() {
 
-  const [history, setHistory] = useState([{ board: Array(9).fill(null), isXNext: true }]);
+  const [history, setHistory] = useState(NEW_GAME);
   const [currentMove, setcurrentMove] = useState(0)
 
   const current = history[currentMove]
 
-  const winner = calculateWinner(current.board)
+  const {winner, winningSquares} = calculateWinner(current.board)
 
   const changeBoard = (position)=>{
 
@@ -39,6 +39,12 @@ function App() {
   }
  
   const isDraw = current.board.every(ele=>ele!==null)
+  
+  const startNewGame = ()=>{
+    setHistory(NEW_GAME)
+    setcurrentMove(0)
+  }
+
   return(
     <main className='app'>
         <h1>Tic Tac Toe</h1>
@@ -47,7 +53,8 @@ function App() {
               { !winner && isDraw && 'The game is tied'}
               {!winner && !isDraw && `${current.isXNext ? "Next player is X" : "Next player is O"}`} 
           </p>        
-        <Board board={ current.board } changeBoard={ changeBoard }  />
+        <Board board={ current.board } changeBoard={ changeBoard } winningSquares = { winningSquares } />
+        <button type='button' onClick={startNewGame}> start new game</button>
         <History boardHistory={ history } moveTo = { moveTo } active={ currentMove } />
     </main>
   );

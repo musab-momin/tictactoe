@@ -1,12 +1,11 @@
 import React from 'react'
 import Square from './Square'
 
-const Board = ({ board, changeBoard }) => {
-
- 
+const Board = ({ board, changeBoard, winningSquares }) => {
 
   const constructBoard = (position)=>{
-    return <Square value={board[position]} changeBoard={()=>changeBoard(position)}/> 
+    const winningCombination = winningSquares.includes(position)
+    return <Square value={board[position]} changeBoard={()=>changeBoard(position)} winningCombination={ winningCombination }/> 
   }
  
   return(
