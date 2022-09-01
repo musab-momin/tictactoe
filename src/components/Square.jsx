@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Square = ({ value }) => {
+const Square = ({ value, changeBoard }) => {
     
     return (
-        <button type='button' className='square'>{value}</button>
+        <button type='button' className='square' onClick={changeBoard}>{value}</button>
     )
 }
 
